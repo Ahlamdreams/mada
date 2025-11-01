@@ -746,7 +746,7 @@
       <div class="platform-card"><i class="fas fa-calendar-check platform-icon"></i>
        <h3>جدول المناوبة</h3>
        <p>تنظيم وإدارة جداول المناوبة للهيئة التعليمية</p>
-       <div class="platform-buttons"><button onclick="openPlatform('schedule')" class="platform-button"> <i class="fas fa-arrow-left"></i> دخول المنصة </button> <button onclick="window.open('https://www.canva.com/design/DAG3Xmc1n5k/rFsIKgPKwe3KxivshisTKg/view?utm_content=DAG3Xmc1n5k&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h2d6d873e66', '_blank', 'noopener,noreferrer')" class="platform-button external"> <i class="fas fa-external-link-alt"></i> فتح خارجي </button>
+       <div class="platform-buttons"><button onclick="openSchedulePlatform()" class="platform-button"> <i class="fas fa-arrow-left"></i> دخول المنصة </button> <button onclick="window.open('https://www.canva.com/design/DAG3Xmc1n5k/rFsIKgPKwe3KxivshisTKg/view?utm_content=DAG3Xmc1n5k&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h2d6d873e66', '_blank', 'noopener,noreferrer')" class="platform-button external"> <i class="fas fa-external-link-alt"></i> فتح خارجي </button>
        </div>
       </div>
       <div class="platform-card"><i class="fab fa-microsoft platform-icon"></i>
@@ -952,6 +952,61 @@
             }
         }
 
+        function openSchedulePlatform() {
+            // Hide all platform pages first
+            document.querySelectorAll('.platform-page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show schedule platform
+            const platformPage = document.getElementById('schedule-platform');
+            if (platformPage) {
+                platformPage.style.display = 'flex';
+                
+                // Check for iframe loading errors
+                const iframe = document.getElementById('schedule-iframe');
+                const errorDiv = document.getElementById('schedule-error');
+                
+                if (iframe && errorDiv) {
+                    // Reset error state
+                    iframe.style.display = 'block';
+                    errorDiv.style.display = 'none';
+                    
+                    // Set up error detection
+                    let hasLoaded = false;
+                    
+                    iframe.onload = function() {
+                        hasLoaded = true;
+                        try {
+                            // Try to access iframe content to detect X-Frame-Options blocking
+                            iframe.contentDocument;
+                        } catch (e) {
+                            // If we can't access content, it might be blocked
+                            setTimeout(() => {
+                                if (!hasLoaded) {
+                                    iframe.style.display = 'none';
+                                    errorDiv.style.display = 'flex';
+                                }
+                            }, 2000);
+                        }
+                    };
+                    
+                    iframe.onerror = function() {
+                        iframe.style.display = 'none';
+                        errorDiv.style.display = 'flex';
+                    };
+                    
+                    // Timeout fallback - if iframe doesn't load within 5 seconds for Canva
+                    setTimeout(() => {
+                        if (!hasLoaded) {
+                            iframe.style.display = 'none';
+                            errorDiv.style.display = 'flex';
+                        }
+                    }, 5000);
+                }
+            }
+        }
+
         function goHome() {
             // Hide all platform pages
             document.querySelectorAll('.platform-page').forEach(page => {
@@ -1019,5 +1074,5 @@
         `;
         document.head.appendChild(style);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'997d3b9575bc1274',t:'MTc2MjAxOTQwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'997d4d45a5f41274',t:'MTc2MjAyMDEzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
