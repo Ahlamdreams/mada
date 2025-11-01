@@ -58,6 +58,15 @@
             order: 2;
         }
 
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+            order: 3;
+        }
+
         .site-logo {
             width: 80px;
             height: 80px;
@@ -113,15 +122,6 @@
             font-weight: 500;
             margin: 0;
             opacity: 0.8;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 2rem;
-            order: 3;
         }
 
         .nav-menu a {
@@ -266,7 +266,8 @@
         .platform-card:nth-child(1) { border-top: 4px solid #e74c3c; }
         .platform-card:nth-child(2) { border-top: 4px solid #f39c12; }
         .platform-card:nth-child(3) { border-top: 4px solid #27ae60; }
-        .platform-card:nth-child(4) { border-top: 4px solid #3498db; }
+        .platform-card:nth-child(4) { border-top: 4px solid #9b59b6; }
+        .platform-card:nth-child(5) { border-top: 4px solid #3498db; }
 
         .platform-icon {
             font-size: 4rem;
@@ -282,7 +283,8 @@
         .platform-card:nth-child(1) .platform-icon { color: #e74c3c; }
         .platform-card:nth-child(2) .platform-icon { color: #f39c12; }
         .platform-card:nth-child(3) .platform-icon { color: #27ae60; }
-        .platform-card:nth-child(4) .platform-icon { color: #3498db; }
+        .platform-card:nth-child(4) .platform-icon { color: #9b59b6; }
+        .platform-card:nth-child(5) .platform-icon { color: #3498db; }
 
         .platform-card h3 {
             font-size: 1.8rem;
@@ -741,6 +743,12 @@
        <div class="platform-buttons"><button onclick="window.open('https://script.google.com/macros/s/AKfycbxQYR1KiimEDXl06xSqBeoDWGpUb9ZrLZ2hNUeDqaSbm91S5XDaUdme8_167R0OPSiZ/exec', '_blank', 'noopener,noreferrer')" class="platform-button"> <i class="fas fa-arrow-left"></i> دخول المنصة </button> <button onclick="window.open('https://script.google.com/macros/s/AKfycbxQYR1KiimEDXl06xSqBeoDWGpUb9ZrLZ2hNUeDqaSbm91S5XDaUdme8_167R0OPSiZ/exec', '_blank', 'noopener,noreferrer')" class="platform-button external"> <i class="fas fa-external-link-alt"></i> فتح خارجي </button>
        </div>
       </div>
+      <div class="platform-card"><i class="fas fa-calendar-check platform-icon"></i>
+       <h3>جدول المناوبة</h3>
+       <p>تنظيم وإدارة جداول المناوبة للهيئة التعليمية</p>
+       <div class="platform-buttons"><button onclick="openPlatform('schedule')" class="platform-button"> <i class="fas fa-arrow-left"></i> دخول المنصة </button> <button onclick="window.open('https://www.canva.com/design/DAG3Xmc1n5k/rFsIKgPKwe3KxivshisTKg/view?utm_content=DAG3Xmc1n5k&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h2d6d873e66', '_blank', 'noopener,noreferrer')" class="platform-button external"> <i class="fas fa-external-link-alt"></i> فتح خارجي </button>
+       </div>
+      </div>
       <div class="platform-card"><i class="fab fa-microsoft platform-icon"></i>
        <h3>فريق عمل تيمز</h3>
        <p>بوابة مباشرة للتواصل، الاجتماعات، والعمل التعاوني بين أعضاء الفريق التعليمي</p><button onclick="window.open('https://teams.microsoft.com/l/team/19%3AlZoV3IQmlwk_RYczGaH2YTp_JXnwKTIamcpQ_rWHn-A1%40thread.tacv2/conversations?groupId=f350a5ce-9ecc-4286-ae67-4a0a482bdd0a&amp;tenantId=04b4cb5d-cc41-401f-bd9d-4ca8a31a5c2f', '_blank', 'noopener,noreferrer')" class="platform-button"> <i class="fas fa-external-link-alt"></i> دخول المنصة </button>
@@ -771,6 +779,19 @@
      <h3><i class="fas fa-exclamation-triangle"></i> تعذر تحميل المنصة</h3>
      <p>لأسباب أمنية، تم حجب عرض هذه المنصة داخل الموقع. يمكنك الوصول إليها مباشرة عبر الخيارات التالية:</p>
      <div class="error-buttons"><button onclick="window.open('https://ahlamdreams.github.io/Stars-of-the-line-/', '_blank', 'noopener,noreferrer')" class="error-button external"> <i class="fas fa-external-link-alt"></i> فتح في نافذة جديدة </button> <button onclick="goHome()" class="error-button home"> <i class="fas fa-home"></i> العودة للرئيسية </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div id="schedule-platform" class="platform-page" style="display: none;">
+   <div class="platform-header"><button onclick="goHome()" class="back-button"> <i class="fas fa-arrow-right"></i> العودة للرئيسية </button>
+    <h1>منصة جدول المناوبة</h1>
+   </div>
+   <div class="platform-content"><iframe id="schedule-iframe" src="https://www.canva.com/design/DAG3Xmc1n5k/rFsIKgPKwe3KxivshisTKg/view?utm_content=DAG3Xmc1n5k&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h2d6d873e66" frameborder="0" width="100%" height="600px" style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"> </iframe>
+    <div id="schedule-error" class="error-message">
+     <h3><i class="fas fa-exclamation-triangle"></i> تعذر تحميل المنصة</h3>
+     <p>لأسباب أمنية، تم حجب عرض هذه المنصة داخل الموقع. يمكنك الوصول إليها مباشرة عبر الخيارات التالية:</p>
+     <div class="error-buttons"><button onclick="window.open('https://www.canva.com/design/DAG3Xmc1n5k/rFsIKgPKwe3KxivshisTKg/view?utm_content=DAG3Xmc1n5k&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h2d6d873e66', '_blank', 'noopener,noreferrer')" class="error-button external"> <i class="fas fa-external-link-alt"></i> فتح في نافذة جديدة </button> <button onclick="goHome()" class="error-button home"> <i class="fas fa-home"></i> العودة للرئيسية </button>
      </div>
     </div>
    </div>
@@ -998,5 +1019,5 @@
         `;
         document.head.appendChild(style);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'997d213be281127a',t:'MTc2MjAxODMyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'997d3b9575bc1274',t:'MTc2MjAxOTQwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
