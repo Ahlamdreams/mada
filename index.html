@@ -338,29 +338,34 @@
 
         /* Platform Pages */
         .platform-page {
-            min-height: 100%;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
         }
 
         .platform-header {
-            max-width: 1200px;
-            margin: 0 auto 2rem auto;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 1rem 2rem;
             display: flex;
             align-items: center;
             gap: 2rem;
-            background: white;
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
         .back-button {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 30px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -368,36 +373,34 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            backdrop-filter: blur(10px);
         }
 
         .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3);
-            background: linear-gradient(135deg, #2a5298, #1e3c72);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .platform-header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin: 0;
-            color: #1e3c72;
+            color: white;
             font-weight: 700;
         }
 
         .platform-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            min-height: 70%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .platform-content iframe {
             width: 100%;
-            min-height: 600px;
+            height: 100%;
             border: none;
-            border-radius: 15px;
+            flex: 1;
         }
 
         .error-message {
@@ -406,8 +409,13 @@
             background: #fff3cd;
             border: 2px solid #ffeaa7;
             border-radius: 15px;
-            margin: 2rem 0;
+            margin: 2rem;
             display: none;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .error-message h3 {
@@ -659,32 +667,19 @@
                 font-size: 0.85rem;
             }
 
-            .platform-page {
-                padding: 1rem;
-            }
-
             .platform-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
                 padding: 1rem;
+                flex-direction: row;
+                gap: 1rem;
             }
 
             .platform-header h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
 
             .back-button {
-                padding: 0.8rem 1.5rem;
+                padding: 0.6rem 1.2rem;
                 font-size: 0.9rem;
-            }
-
-            .platform-content {
-                padding: 1rem;
-            }
-
-            .platform-content iframe {
-                min-height: 500px;
             }
 
             .logo-embed {
@@ -894,12 +889,7 @@
 
         // Platform navigation functions
         function openPlatform(platformType) {
-            // Hide main content
-            document.querySelector('header').style.display = 'none';
-            document.querySelector('main').style.display = 'none';
-            document.querySelector('footer').style.display = 'none';
-            
-            // Hide all platform pages
+            // Hide all platform pages first
             document.querySelectorAll('.platform-page').forEach(page => {
                 page.style.display = 'none';
             });
@@ -908,13 +898,17 @@
             const platformId = platformType + '-platform';
             const platformPage = document.getElementById(platformId);
             if (platformPage) {
-                platformPage.style.display = 'block';
+                platformPage.style.display = 'flex';
                 
                 // Check for iframe loading errors
                 const iframe = document.getElementById(platformType + '-iframe');
                 const errorDiv = document.getElementById(platformType + '-error');
                 
                 if (iframe && errorDiv) {
+                    // Reset error state
+                    iframe.style.display = 'block';
+                    errorDiv.style.display = 'none';
+                    
                     // Set up error detection
                     let hasLoaded = false;
                     
@@ -928,7 +922,7 @@
                             setTimeout(() => {
                                 if (!hasLoaded) {
                                     iframe.style.display = 'none';
-                                    errorDiv.style.display = 'block';
+                                    errorDiv.style.display = 'flex';
                                 }
                             }, 2000);
                         }
@@ -936,23 +930,17 @@
                     
                     iframe.onerror = function() {
                         iframe.style.display = 'none';
-                        errorDiv.style.display = 'block';
+                        errorDiv.style.display = 'flex';
                     };
                     
                     // Timeout fallback - if iframe doesn't load within 10 seconds
                     setTimeout(() => {
                         if (!hasLoaded) {
                             iframe.style.display = 'none';
-                            errorDiv.style.display = 'block';
+                            errorDiv.style.display = 'flex';
                         }
                     }, 10000);
                 }
-                
-                // Smooth scroll to top
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
             }
         }
 
@@ -960,17 +948,6 @@
             // Hide all platform pages
             document.querySelectorAll('.platform-page').forEach(page => {
                 page.style.display = 'none';
-            });
-            
-            // Show main content
-            document.querySelector('header').style.display = 'block';
-            document.querySelector('main').style.display = 'block';
-            document.querySelector('footer').style.display = 'block';
-            
-            // Smooth scroll to top
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
             });
         }
 
@@ -1034,5 +1011,5 @@
         `;
         document.head.appendChild(style);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'997d00f323c04e98',t:'MTc2MjAxNzAwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'997d1ad2a3f1127a',t:'MTc2MjAxODA2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
